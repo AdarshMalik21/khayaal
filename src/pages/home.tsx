@@ -131,7 +131,9 @@ export default function Home() {
             {navLinks.map((link) => (
               <a key={link.href} href={link.href} className={`text-sm font-medium hover:text-primary transition-colors ${isScrolled ? "text-foreground/80" : "text-white/90"}`}>{link.label}</a>
             ))}
-            <Button className="rounded-full px-6 bg-primary hover:bg-primary/90 text-white border-none shadow-md">Join Us</Button>
+            <Button asChild className="rounded-full px-6 bg-primary hover:bg-primary/90 text-white border-none shadow-md">
+              <a href="#contact">Join Us</a>
+            </Button>
           </div>
           <button
             className={`md:hidden p-2 rounded-lg transition-colors ${isScrolled || menuOpen ? "text-foreground" : "text-white"}`}
@@ -151,7 +153,9 @@ export default function Home() {
             {navLinks.map((link) => (
               <a key={link.href} href={link.href} className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors py-2 border-b border-border/30 last:border-0" onClick={() => setMenuOpen(false)}>{link.label}</a>
             ))}
-            <Button className="rounded-full mt-2 bg-primary hover:bg-primary/90 text-white" onClick={() => setMenuOpen(false)}>Join Us</Button>
+            <Button asChild className="rounded-full mt-2 bg-primary hover:bg-primary/90 text-white" onClick={() => setMenuOpen(false)}>
+              <a href="#contact">Join Us</a>
+            </Button>
           </div>
         </motion.div>
       </nav>
