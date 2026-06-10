@@ -6,12 +6,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Mail, Phone, MapPin, Instagram, Heart, Users, Globe, BookOpen, Menu, X, ChevronDown } from "lucide-react";
 import { useRef } from "react";
 
-import founderHeroImg from "@assets/latestimage.jpeg";
+import founderHeroImg from "@assets/IMG_0470.jpeg";
 import creativityImg from "@assets/IMG_0335.jpeg";
 import groupArtworkImg from "@assets/IMG_0917.jpeg";
 import volunteerTeamImg from "@assets/IMG_1077.jpeg";
 import pastInitiativesImg from "@assets/IMG_0801.jpeg";
-import childHoldingArtImg from "@assets/IMG_0095.jpeg";
+import childHoldingArtImg from "@assets/IMG_0917.jpeg";
 
 const AnimatedCounter = ({ value, label }: { value: string; label: string }) => {
   const ref = useRef(null);
