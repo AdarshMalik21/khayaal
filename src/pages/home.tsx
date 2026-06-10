@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Mail, Phone, MapPin, Instagram, Heart, Users, Globe, BookOpen, Menu, X, ChevronDown } from "lucide-react";
 import { useRef } from "react";
 
-import founderHeroImg from "@assets/IMG_0470.jpeg";
+import founderHeroImg from "@assets/latestimage.jpeg";
 import creativityImg from "@assets/IMG_0335.jpeg";
 import groupArtworkImg from "@assets/IMG_0917.jpeg";
 import volunteerTeamImg from "@assets/IMG_1077.jpeg";
@@ -125,7 +125,7 @@ export default function Home() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || menuOpen ? "bg-background/95 backdrop-blur-lg border-b border-border/50 py-3 shadow-sm" : "bg-transparent py-4 sm:py-6"}`}>
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
           <a href="#" className={`font-serif text-2xl sm:text-3xl font-bold transition-colors ${isScrolled || menuOpen ? "text-foreground" : "text-white"}`}>
-            khayaal<span className="text-primary">.</span>
+            Khayaal
           </a>
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
