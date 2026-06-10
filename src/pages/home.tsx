@@ -122,7 +122,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background selection:bg-primary/20 selection:text-primary overflow-x-hidden">
       {/* Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || menuOpen ? "bg-background/95 backdrop-blur-lg border-b border-border/50 py-3 shadow-sm" : "bg-transparent py-4 sm:py-6"}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-60 transition-all duration-300 ${isScrolled || menuOpen ? "bg-background/95 backdrop-blur-lg border-b border-border/50 py-3 shadow-sm" : "bg-transparent py-4 sm:py-6"}`}>
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
           <a href="#" className={`font-serif text-2xl sm:text-3xl font-bold transition-colors ${isScrolled || menuOpen ? "text-foreground" : "text-white"}`}>
             Khayaal
@@ -136,20 +136,23 @@ export default function Home() {
             </Button>
           </div>
           <button
+            type="button"
             className={`md:hidden p-2 rounded-lg transition-colors ${isScrolled || menuOpen ? "text-foreground" : "text-white"}`}
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
           >
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+        {menuOpen && <button type="button" aria-label="Close mobile navigation" className="fixed inset-0 z-50 md:hidden bg-black/20 backdrop-blur-[1px]" onClick={() => setMenuOpen(false)} />}
         <motion.div
           initial={false}
-          animate={menuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+          animate={menuOpen ? { height: "auto", opacity: 1, y: 0 } : { height: 0, opacity: 0, y: -8 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="md:hidden overflow-hidden bg-background border-b border-border/50"
+          className="md:hidden absolute left-0 right-0 top-full z-60 overflow-hidden bg-background border-b border-border/50 shadow-lg"
         >
-          <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
+          <div className="container mx-auto px-4 py-6 flex flex-col gap-4 relative z-60">
             {navLinks.map((link) => (
               <a key={link.href} href={link.href} className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors py-2 border-b border-border/30 last:border-0" onClick={() => setMenuOpen(false)}>{link.label}</a>
             ))}
@@ -184,8 +187,12 @@ export default function Home() {
               Khayaal means a thought. And sometimes, the beginning of change. We bridge the gap between mere attendance and meaningful, confident learning.
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto justify-center">
-              <Button size="lg" className="w-full sm:w-auto rounded-full px-8 text-base bg-primary hover:bg-primary/90 text-white border-none shadow-xl shadow-primary/20 h-12 sm:h-14 transition-all hover:scale-105">Join Our Mission</Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-8 text-base bg-white/5 hover:bg-white/10 text-white border-white/30 backdrop-blur-sm h-12 sm:h-14 transition-all hover:scale-105">Become a Volunteer</Button>
+              <Button asChild size="lg" className="w-full sm:w-auto rounded-full px-8 text-base bg-primary hover:bg-primary/90 text-white border-none shadow-xl shadow-primary/20 h-12 sm:h-14 transition-all hover:scale-105">
+                <a href="#get-involved">Join Our Mission</a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-8 text-base bg-white/5 hover:bg-white/10 text-white border-white/30 backdrop-blur-sm h-12 sm:h-14 transition-all hover:scale-105">
+                <a href="#contact">Become a Volunteer</a>
+              </Button>
             </motion.div>
           </div>
         </div>
@@ -402,7 +409,7 @@ export default function Home() {
       {/* Get Involved & Contact */}
       <section id="contact" className="py-16 sm:py-24 md:py-32 bg-background">
         <div className="container px-4 sm:px-6 mx-auto">
-          <div className="text-center mb-10 sm:mb-16">
+          <div id="get-involved" className="text-center mb-10 sm:mb-16 scroll-mt-24">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-3 sm:mb-4">Find Your Place Here</h2>
             <p className="text-base sm:text-lg text-muted-foreground">There are many ways to support the Khayaal movement.</p>
           </div>
