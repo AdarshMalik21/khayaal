@@ -198,7 +198,7 @@ export default function Home() {
         </motion.div>
       </nav>
 
-      {/* Hero */}
+      {/* Hero    */}
       <section className="relative min-h-dvh h-full flex items-center justify-center pt-16 sm:pt-20 overflow-hidden">
         <div className="absolute inset-0 z-0 bg-black">
           <motion.div style={{ y }} className="w-full h-full opacity-70">
