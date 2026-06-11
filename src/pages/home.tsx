@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Mail, Phone, MapPin, Instagram, Heart, Users, Globe, BookOpen, Menu, X, ChevronDown } from "lucide-react";
 import { useRef } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 import founderHeroImg from "@assets/IMG_0470.jpeg";
 import creativityImg from "@assets/IMG_0335.jpeg";
@@ -91,11 +92,19 @@ const PillarCard = ({
   );
 };
 
+type InvolvementItem = {
+  title: string;
+  desc: string;
+  cta: string;
+  variant: "default" | "outline";
+};
+
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -118,6 +127,32 @@ export default function Home() {
     { href: "#impact", label: "Impact" },
     { href: "#contact", label: "Contact" },
   ];
+
+  const handleInterestClick = async (item: InvolvementItem) => {
+    try {
+      const response = await fetch("/api/contact-interest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send contact email");
+      }
+
+      toast({
+        title: "We will contact you shortly",
+        description: `${item.title} · ${item.cta}`,
+      });
+    } catch {
+      toast({
+        title: "Message not sent",
+        description: "Please try again in a moment.",
+      });
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-background selection:bg-primary/20 selection:text-primary overflow-x-hidden">
@@ -180,7 +215,7 @@ export default function Home() {
             <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif text-white leading-[1.05] mb-4 sm:mb-6 font-medium">
               Beyond Access <br />to Education.
             </motion.h1>
-            <motion.h2 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="text-lg sm:text-2xl md:text-4xl font-serif italic text-primary/90 mb-6 sm:mb-8 px-2">
+            <motion.h2 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="text-lg sm:text-2xl md:text-4xl font-serif font-semibold italic text-primary drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] mb-6 sm:mb-8 px-2">
               Towards Confidence, Capability, and Real Learning.
             </motion.h2>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-base sm:text-lg md:text-xl text-white/80 font-sans max-w-2xl mb-8 sm:mb-12 leading-relaxed px-2">
@@ -421,7 +456,7 @@ export default function Home() {
               { title: "Host a Workshop", desc: "Share your skills in art, tech, or communication.", cta: "Propose Workshop", variant: "outline" as const },
               { title: "Campus Ambassador", desc: "Lead the Khayaal movement in your university.", cta: "Become Ambassador", variant: "outline" as const },
             ].map((item) => (
-              <div key={item.title} className="bg-card p-6 sm:p-8 rounded-3xl border border-border shadow-sm hover:shadow-md transition-shadow text-center">
+              <div key={item.title} className="bg-card p-6 sm:p-8 rounded-3xl border border-border shadow-sm hover:shadow-md transition-shadow text-center cursor-pointer" onClick={() => handleInterestClick(item)}>
                 <h3 className="text-lg sm:text-xl font-bold font-serif mb-2 sm:mb-3">{item.title}</h3>
                 <p className="text-muted-foreground mb-5 sm:mb-6 text-sm">{item.desc}</p>
                 <Button variant={item.variant} className="w-full rounded-full">{item.cta}</Button>
